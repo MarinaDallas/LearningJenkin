@@ -1,5 +1,6 @@
 package testCases;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import org.openqa.selenium.support.PageFactory;
@@ -21,27 +22,29 @@ public class LoginPageTest extends TestBase{
 	  initializeDriver();
 	  loginpageObj = PageFactory.initElements(driver, LoginPage.class);
 	 }
- @Test
- public void loginTest() throws ClassNotFoundException, SQLException, InterruptedException {
+ @Test(priority=1)
+ public void loginTest() throws ClassNotFoundException, SQLException, InterruptedException, IOException {
 		
 	 loginpageObj.enterUserName("demo@techfios.com");
-	 //loginpageObj.enterUserName(DatabasePage.getData("username"));
-	 loginpageObj.enterPassword("abc123");
-	// loginpageObj.enterPassword(DatabasePage.getData("password"));
-	 loginpageObj.clickSignInButton();
 	 Thread.sleep(2000);
+	  loginpageObj.enterPassword("abc123");
+	 Thread.sleep(2000);
+	loginpageObj.clickSignInButton();
+	takeScreenshotAtEndOfTest(driver);
 	}
- @Test
- public void loginTestPage() throws InterruptedException {
+ @Test(priority=2)
+ public void loginpageTitleTest() throws ClassNotFoundException, SQLException, InterruptedException, IOException {
+	 
 	 loginpageObj.enterUserName("demo@techfios.com");
-	 //loginpageObj.enterUserName(DatabasePage.getData("username"));
+	 Thread.sleep(2000);
 	 loginpageObj.enterPassword("abc123");
-	// loginpageObj.enterPassword(DatabasePage.getData("password"));
-	 loginpageObj.clickSignInButton();
+	 Thread.sleep(2000);
+	loginpageObj.clickSignInButton();
+	 
 	 String expectedTitle="Dashboard- iBilling";
 	  String actualTitle=loginpageObj.getPageTitle();
 	  Assert.assertEquals(expectedTitle, actualTitle); 
-	 Thread.sleep(2000);
+	 
  }
 	
 	
